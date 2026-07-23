@@ -1,6 +1,6 @@
 import os
 import requests
-import pyTelegramBotAPI
+import telebot
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
