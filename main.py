@@ -71,7 +71,7 @@ def handle_message(message):
 	vuotlink_url = message.text.strip()  # https://vuotlink.xyz/PvDl -> PvDl là alias
 	alias = urlparse(vuotlink_url).path.strip('/')
 
-	link4m_url = get_link2m(alias)
+	link2m_url = get_link2m(alias)
 	note_id = get_snote_id(link2m_url)
 	result = get_snote_content(note_id)
 	bot.reply_to(message, result)
