@@ -21,11 +21,11 @@ def get_link2m(alias):
 	}
 
 	params = {
-		'alias': alias,  # ID lấy từ url người dùng gửi vào bot
+		'alias': alias,
 	}
 
 	response = requests.post(
-'https://vuotlink.xyz/links/gosl/',
+		'https://vuotlink.xyz/links/gosl/',
 		params=params,
 		cookies=cookies,
 		headers=headers,
@@ -36,12 +36,16 @@ def get_link2m(alias):
 
 
 def get_snote_id(link2m_url):
-	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+	headers = {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+	}
 	response = requests.get(link2m_url, headers=headers)
 	soup = BeautifulSoup(response.text, 'html.parser')
 	h4 = soup.find('h4')
+
 	if h4:
 		return h4.get_text().split('|')[0].strip()
+
 	return None
 
 
@@ -52,7 +56,7 @@ def get_snote_content(note_id):
 		'User-Agent': 'Mozilla/5.0'
 	}
 	response = requests.get(url, headers=headers)
-	data = response.text
+	soup = BeautifulSoup(response.text, 'html.parser')
 
 	note = soup.select_one('.form-control.read.content-fit')
 	if not note:
@@ -62,18 +66,21 @@ def get_snote_content(note_id):
 
 	html = note
 	soup = BeautifulSoup(str(html), 'html.parser')
-	content = soup.a['href'] #
+	content = soup.a['href']
 	
 	return f'Content:\n{content}\n\nTitle: {title}'
 
+
 @bot.message_handler(func=lambda m: True)
 def handle_message(message):
-	vuotlink_url = message.text.strip()  # https://vuotlink.xyz/PvDl -> PvDl là alias
+	vuotlink_url = message.text.strip()
 	alias = urlparse(vuotlink_url).path.strip('/')
 
 	link2m_url = get_link2m(alias)
 	note_id = get_snote_id(link2m_url)
 	result = get_snote_content(note_id)
+
 	bot.reply_to(message, result)
+
 
 bot.infinity_polling()
