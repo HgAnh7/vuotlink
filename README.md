@@ -1,1 +1,1 @@
-Vượt link nếu có link4m
+Vượt link nếu có link2m
