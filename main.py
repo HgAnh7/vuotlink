@@ -43,7 +43,7 @@ def get_snote_id(link4m_url):
 
 
 def get_snote_content(note_id):
-	url = f'https://note2s.vip/api/notes/{note_id}'
+	url = f'https://note2s.vip/notes/{note_id}'
 	
 	headers = {
 		'User-Agent': 'Mozilla/5.0'
