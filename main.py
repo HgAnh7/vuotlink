@@ -33,7 +33,7 @@ def get_link2m(alias):
 	)
 
 	data = response.json()
- print(data.get('url')) ####
+	print(data.get('url')) ####
 	return data.get('url')
 
 
