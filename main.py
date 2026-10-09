@@ -46,6 +46,7 @@ def get_snote_id(link2m_url):
 	h4 = soup.find('h4')
 
 	if h4:
+		print(return h4.get_text().split('|')[0].strip()) ###
 		return h4.get_text().split('|')[0].strip()
 
 	return None
@@ -70,6 +71,7 @@ def get_snote_content(note_id):
 	soup = BeautifulSoup(str(html), 'html.parser')
 	content = soup.a['href']
 	
+	print(f'Content:\n{content}\n\nTitle: {title}') ###
 	return f'Content:\n{content}\n\nTitle: {title}'
 
 
