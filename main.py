@@ -46,7 +46,7 @@ def get_snote_id(link2m_url):
 	h4 = soup.find('h4')
 
 	if h4:
-		print(return h4.get_text().split('|')[0].strip()) ###
+		print(h4.get_text().split('|')[0].strip()) ###
 		return h4.get_text().split('|')[0].strip()
 
 	return None
