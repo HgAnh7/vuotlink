@@ -29,9 +29,11 @@ def get_link2m(alias):
 		params=params,
 		cookies=cookies,
 		headers=headers,
+		timeout=10
 	)
 
 	data = response.json()
+ print(data.get('url')) ####
 	return data.get('url')
 
 
