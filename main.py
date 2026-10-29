@@ -46,25 +46,18 @@ def get_snote_id(link2m_url):
 	return None
 
 
+
 def get_snote_content(note_id):
-	url = f'https://note2s.vip/notes/{note_id}'
-	
-	headers = {
-		'User-Agent': 'Mozilla/5.0'
-	}
-	response = requests.get(url, headers=headers)
-	soup = BeautifulSoup(response.text, 'html.parser')
+    url = f'https://note2s.vip/notes/{note_id}'
+    response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+    data = response.json()
 
-	note = soup.select_one('.form-control.read.content-fit')
-	if not note:
-		return 'Không tìm thấy nội dung. \nPhiên bản có thể đã cập nhật.'
-		
-	title = note.find('h5').get_text(strip=True)
+    note = data.get('note', {})
+    title = note.get('title', '')
+    soup = BeautifulSoup(note.get('content', ''), 'html.parser')
+    link = soup.find('a')
+    content = link['href'] if link else soup.get_text(strip=True)
 
-	html = note
-	soup = BeautifulSoup(str(html), 'html.parser')
-	content = soup.a['href']
-	
 	print(f'Content:\n{content}\n\nTitle: {title}') ###
 	return f'Content:\n{content}\n\nTitle: {title}'
 
