@@ -45,9 +45,10 @@ def get_link2m(alias):
 	
 	response = requests.post('https://link3s.top/links/gosl/', params=params, cookies=cookies, headers=headers, data=data, timeout=10)
 
-	data = response.json()
-	print(data.get('url')) ####
-	return data.get('url')
+	result = response.json()
+	url = result['data']['url']
+	print(url) ####
+	return url
 
 
 def get_snote_id(link2m_url):
