@@ -57,7 +57,7 @@ def get_snote_content(note_id):
     soup = BeautifulSoup(note.get('content', ''), 'html.parser')
     link = soup.find('a')
     content = link['href'] if link else soup.get_text(strip=True)
-
+	
 	print(f'Content:\n{content}\n\nTitle: {title}') ###
 	return f'Content:\n{content}\n\nTitle: {title}'
 
