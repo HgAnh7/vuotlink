@@ -87,7 +87,7 @@ def get_snote_content(note_id):
 @bot.message_handler(func=lambda m: True)
 def handle_message(message):
     vuotlink_url = message.text.strip()
-    if not url.startswith('https://'):
+    if not vuotlink_url.startswith('https://'):
         return
 
     try:
