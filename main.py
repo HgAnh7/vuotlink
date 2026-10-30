@@ -86,16 +86,20 @@ def get_snote_content(note_id):
 
 @bot.message_handler(func=lambda m: True)
 def handle_message(message):
-    if not message.text:
+    vuotlink_url = message.text.strip()
+    if not url.startswith('https://'):
         return
 
     try:
-        vuotlink_url = message.text.strip()
+        #vuotlink_url = message.text.strip()
         alias = urlparse(vuotlink_url).path.strip('/')
 
         link2m_url = get_link2m(alias)
+        if not link2m_url:
+            bot.reply_to(message, 'Không tìm thấy Link2m url.')
+            return
+        
         note_id = get_snote_id(link2m_url)
-
         if not note_id:
             bot.reply_to(message, 'Không tìm thấy Note ID.')
             return
